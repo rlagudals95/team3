@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Image2 from "../elements/Image2";
 import Grid2 from "../elements/Grid2";
 import styled from "styled-components";
@@ -6,21 +6,32 @@ import { createGlobalStyle } from "styled-components";
 import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 import Header from "./Header";
+import { actionCreators as postActions } from "../redux/modules/post";
 
 import axios from "axios";
 import Post from "./Post";
+import { useDispatch, useSelector } from "react-redux";
 
 const Main = (props) => {
   const [is_like, setIs_like] = useState(false);
+  const post_list = useSelector((state) => state.post.list);
+  const dispatch = useDispatch();
+  // console.log(post_list)
+
 
   // axios
-  //   .get("http://13.125.39.34/insta/main")
+  //   .get("https://606aaf9be1c2a10017545cef.mockapi.io/mock/v1/post")
   //   .then((Response) => {
-  //     console.log(Response.data.ret);
+  //     console.log(Response.data);
+  //     Response.data.forEach((doc))
   //   })
   //   .catch((Error) => {
   //     console.log(Error);
   //   });
+
+  useEffect(() => {
+    dispatch(postActions.getPostDB());
+  }, []);
 
   const Section = styled.div`
   display: flex;
@@ -88,10 +99,15 @@ height: 100%;
       <Grid2 bg="rgba(var(--b3f,250,250,250),1)">
         <Section>
           <Leftmain>
+            <Post/>
             {/* <Story>
               <Instory></Instory>
             </Story> */}
-            <Post />
+            {post_list.map((p, idx) => {
+              return (
+              <Post {...p} />
+              )
+            })}
           </Leftmain>
           <Rightmain>
             <Rightbottom>

@@ -7,6 +7,7 @@ import axios from "axios";
 import Modal from "./Modal";
 import CommentList from "./CommentList"
 import CommentWrite from "./CommentWrite";
+import Heart from "../doubleheart.png"
 
 const Post = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -351,6 +352,20 @@ const Post = (props) => {
     line-height: 13px;
   `;
 
+  const Double = styled.span`
+  background-image: url('${Heart}')
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  height: 128px;
+  width: 128px;
+  animation-duration: 1000ms;
+  animation-name: like-heart-animation;
+  animation-timing-function: ease-in-out;
+  margin: 0 auto;
+  opacity: 0;
+  transform: scale(0);
+  `
+
   return (
     <Fragment>
       <Post>
@@ -359,9 +374,9 @@ const Post = (props) => {
             <Image2
               size="32"
               shape="circle"
-              src={props.user_info.user_profile}
+              src={props.user_img}
             />
-            <Profilename>{props.user_info.user_name}</Profilename>
+            <Profilename>{props.user_id}</Profilename>
             <Option onClick={openModal}>
               <svg
                 aria-label="옵션 더 보기"
@@ -467,7 +482,7 @@ const Post = (props) => {
             <Mainbox2>좋아요 {props.like}개</Mainbox2>
             <Mainbox3>
               <Comment>
-                <Commentname>{props.user_info.user_name}</Commentname> {props.desc}
+                <Commentname>{props.user_id}</Commentname> {props.contents}
               </Comment>
               <CommentList />
             </Mainbox3>
@@ -486,12 +501,10 @@ const Post = (props) => {
 };
 
 Post.defaultProps = {
-  user_info: {
-    user_name: "sparta",
-    user_profile: "https://cdn.discordapp.com/attachments/578800402036949002/825716597414035517/e.jpg",
-  },
+  user_id: "sparta",
+  user_img: "https://cdn.discordapp.com/attachments/578800402036949002/825716597414035517/e.jpg",
   img: "https://cdn.discordapp.com/attachments/578800402036949002/825716597414035517/e.jpg",
-  desc: "내용",
+  contents: "내용",
   insert_dt: "2분 전",
   is_me: false,
   like: "0",
