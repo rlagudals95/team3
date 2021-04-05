@@ -3,17 +3,35 @@ import styled from "styled-components";
 import { Grid, Text, Button, Input } from "../elements";
 import { useDispatch } from "react-redux";
 import { history } from "../redux/configureStore";
+import { emailCheck } from "../share/common";
+import { actionsCreators as UserActions } from "../redux/modules/user";
 
 const Signup = (props) => {
   const dispatch = useDispatch();
 
-  const [id, setId] = React.useState("");
-  const [pwd, setPwd] = React.useState("");
+  const [user_email, setEmail] = React.useState("");
+  const [nickname, setNickname] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const [pwd_check, setPwdCheck] = React.useState("");
   const [user_name, setUserName] = React.useState("");
 
   const signup = () => {
-    return;
+    if (user_email === "" || password === "" || user_name === "") {
+      window.alert("아이디, 패스워드, 닉네임을 모두 입력해주세요!");
+      return;
+    }
+
+    if (!emailCheck(user_email)) {
+      window.alert("이메일 형식이 맞지 않습니다!");
+      return;
+    }
+
+    if (password !== pwd_check) {
+      window.alert("패스워드와 패스워드 확인이 일치하지 않습니다!");
+      return;
+    }
+
+    dispatch(UserActions.SignupDB(user_email, nickname, user_name, password));
   };
 
   return (
@@ -30,11 +48,43 @@ const Signup = (props) => {
               친구들의 사진과 동영상을 보려면 가입하세요.
             </div>
             <Grid padding="16px 0px">
-              <Input placeholder="아이디를 입력해주세요." />
-              <Input placeholder="닉네임 입력해주세요." />
-              <Input placeholder="패스워드 입력해주세요." type="password" />
-              <Input placeholder="패스워드를 확인해 주세요" />
-              <Button text="로그인" width="240px" height="40px" />
+              <Input
+                placeholder="이메일을 입력해주세요."
+                _onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+              <Input
+                placeholder="닉네임 입력해주세요."
+                _onChange={(e) => {
+                  setNickname(e.target.value);
+                }}
+              />
+              <Input
+                placeholder="이름을 입력해주세요."
+                _onChange={(e) => {
+                  setUserName(e.target.value);
+                }}
+              />
+              <Input
+                placeholder="패스워드 입력해주세요."
+                type="password"
+                _onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+              <Input
+                placeholder="패스워드를 확인해 주세요"
+                _onChange={(e) => {
+                  setPwdCheck(e.target.value);
+                }}
+              />
+              <Button
+                text="회원가입"
+                width="240px"
+                height="40px"
+                _onClick={signup}
+              />
             </Grid>
           </LoginBox>
           <SingUpBox>
@@ -43,10 +93,10 @@ const Signup = (props) => {
               <span
                 style={{ color: "#0095f6", fontWeight: "bold" }}
                 onClick={() => {
-                  history.push("/");
+                  history.push("/login");
                 }}
               >
-                회원가입
+                로그인
               </span>
             </SingUpText>
           </SingUpBox>

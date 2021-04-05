@@ -22,8 +22,9 @@ const Header = (props) => {
               history.push("/");
             }}
           >
-            <InstagramIcon />
-            Instagram
+            <InstaLogo />
+            {/* <InstagramIcon />
+            Instagram */}
           </Logo>
           <BtnBox>
             <Btn>
@@ -36,7 +37,12 @@ const Header = (props) => {
             <Btn>
               <FavoriteBorderIcon />
             </Btn>
-            <ProfileImg {...styles} />
+            <ProfileImg
+              {...styles}
+              onClick={() => {
+                history.push("/profile"); //profile로 가기로 하자
+              }}
+            />
           </BtnBox>
         </ConnectedRouter>
       </InnerBox>
@@ -85,6 +91,14 @@ const Logo = styled.div`
 const Btn = styled.div`
   cursor: pointer;
   margin: 0px 7px;
+`;
+
+const InstaLogo = styled.div`
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/image-community-9d16c.appspot.com/o/images%2Finsta_logo.png?alt=media&token=297d0664-3af3-49d8-b47c-0fccecdc9d0d");
+  background-size: cover;
+  height: 30px;
+  width: 120px;
+  margin-left: -30px;
 `;
 
 const ProfileImg = styled.div`

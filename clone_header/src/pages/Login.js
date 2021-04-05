@@ -3,18 +3,21 @@ import styled from "styled-components";
 import { Grid, Text, Button, Input } from "../elements/index";
 import { useDispatch } from "react-redux";
 import { history } from "../redux/configureStore";
+import { actionsCreators as userActions } from "../redux/modules/user";
 
 const Login = (props) => {
   const dispatch = useDispatch();
 
-  const [id, setId] = React.useState("");
-  const [pwd, setPwd] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   const login = () => {
-    if (id === "" || pwd === "") {
+    if (email === "" || password === "") {
       window.alert("아이디 혹은 비밀번호가 공란입니다! 입력해주세요!");
       return;
     }
+
+    dispatch(userActions.LoginDB(email, password));
   };
 
   return (
@@ -29,23 +32,23 @@ const Login = (props) => {
             <Logo></Logo>
             <Grid padding="16px 0px">
               <Input
-                placeholder="아이디를 입력해주세요."
-                onChange={(e) => {
-                  setId(e.target.value);
+                placeholder="이메일을 입력해주세요"
+                _onChange={(e) => {
+                  setEmail(e.target.value);
                 }}
               />
               <Input
                 placeholder="패스워드 입력해주세요."
                 type="password"
-                onChange={(e) => {
-                  setPwd(e.target.value);
+                _onChange={(e) => {
+                  setPassword(e.target.value);
                 }}
               />
               <Button
                 text="로그인"
                 width="240px"
                 height="40px"
-                onClick={login}
+                _onClick={login}
               />
             </Grid>
           </LoginBox>
@@ -99,9 +102,9 @@ const InnerBoxLeft = styled.div`
 
 const Logo = styled.div`
   margin: 20px auto;
-  width: 200px;
-  height: 85px;
-  background-image: url("https://pngimage.net/wp-content/uploads/2018/06/font-instagram-png-5.png");
+  width: 210px;
+  height: 70px;
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/image-community-9d16c.appspot.com/o/images%2Finsta_logo.png?alt=media&token=297d0664-3af3-49d8-b47c-0fccecdc9d0d");
   background-size: cover;
 `;
 

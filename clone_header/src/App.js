@@ -16,11 +16,10 @@ import { Fragment } from "react";
 import Grid2 from "./elements/Grid2";
 
 const App = () => {
-
-  useEffect(()=>{
+  useEffect(() => {
     const htmlTitle = document.querySelector("title");
     htmlTitle.innerHTML = "Instagram";
-  },[])
+  }, []);
 
   return (
     <React.Fragment>
