@@ -84,18 +84,22 @@ const Modal = (props) => {
     background-color: white;
   `;
 
+  const Alert = () => {
+    window.alert('아직 지원하지 않는 기능입니다.')
+  }
+
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
     <div className={open ? "openModal modal" : "modal"}>
       {open ? (
         <section>
           <main>
-            <ModalboxR>신고</ModalboxR>
-            <ModalboxR>팔로우 취소</ModalboxR>
-            <Modalbox>게시물로 이동</Modalbox>
-            <Modalbox>공유 대상...</Modalbox>
-            <Modalbox>링크 복사</Modalbox>
-            <Modalbox>퍼가기</Modalbox>
+            <ModalboxR onClick={Alert}>신고</ModalboxR>
+            <ModalboxR onClick={Alert}>팔로우 취소</ModalboxR>
+            <Modalbox onClick={Alert}>게시물로 이동</Modalbox>
+            <Modalbox onClick={Alert}>공유 대상...</Modalbox>
+            <Modalbox onClick={Alert}>링크 복사</Modalbox>
+            <Modalbox onClick={Alert}>퍼가기</Modalbox>
             <Modalbox onClick={close}>취소</Modalbox>
           </main>
         </section>

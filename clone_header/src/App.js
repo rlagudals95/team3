@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "./components/Header";
 
 import "./App.css";
@@ -16,6 +16,12 @@ import { Fragment } from "react";
 import Grid2 from "./elements/Grid2";
 
 const App = () => {
+
+  useEffect(()=>{
+    const htmlTitle = document.querySelector("title");
+    htmlTitle.innerHTML = "Instagram";
+  },[])
+
   return (
     <React.Fragment>
       <ConnectedRouter history={history}>
