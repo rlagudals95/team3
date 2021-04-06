@@ -1,7 +1,6 @@
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react';
 
-const Spinner = (props) => {
-
+function Spinner() {
     return (
         <Fragment>
             <svg viewBox="0 0 50 50"

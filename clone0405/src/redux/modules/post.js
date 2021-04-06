@@ -6,43 +6,22 @@ import moment from "moment";
 import "moment/locale/ko";
 
 const SET_POST = "SET_POST";
-// const ADD_POST = 'ADD_POST';
-// const DEL_POST = 'DEL_POST';
+const LOADING = 'LOADING';
 
 const setPost = createAction(SET_POST, (post_list, paging) => ({ post_list, paging }));
-// const getPost = createAction(GET_POST, (post_list) => ({ post_list }));
-// const addPost = createAction(ADD_POST, (post_list) => ({ post_list }));
-// const delPost = createAction(DEL_POST, (post_id) => ({ post_id }));
+const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 const initialState = {
     list: [],
-    paging: { start: null, size: 5 }
+    paging: { start: null, size: 5 },
+    is_loading: false,
 };
-
-//글 작성
-// const addPostDB = (user_id, post_img, post_contents) => {
-//     return function (dispatch, getState, { history }) {
-//         axios({
-//             method: 'post',
-//             url: `${config.api}/post`,
-//             data: {
-//                 insert_dt: insert_dt,
-//                 user_id: user_id,
-//                 user_img: user_img,
-//                 post_img: post_img,
-//                 post_contents, post_contents,
-//             },
-//         }).then((res) => {
-//             history.push('/');
-//         }).catch((err) => {
-//             console.log('에러', err);
-//         });
-//     };
-// };
 
 const getPostDB = (start = null, size = null) => {
     return function (dispatch, getState, { history }) {
-        // console.log(moment("2021-04-05 17:08:03").fromNow());
+        if (start === null) {
+            dispatch(loading(true));
+        }
         console.log(start)
         axios({
             method: "GET",
@@ -73,6 +52,11 @@ export default handleActions(
                 draft.list.push(...action.payload.post_list);
                 console.log(action.payload.paging)
                 draft.paging = action.payload.paging;
+                draft.is_loading = false;
+            }),
+        [LOADING]: (state, action) =>
+            produce(state, (draft) => {
+                draft.is_loading = action.payload.is_loading;
             }),
     },
     initialState

@@ -1,13 +1,10 @@
 import React, { Fragment, useState } from "react";
-
 import Image2 from "../elements/Image2";
 import Grid2 from "../elements/Grid2";
 import styled from "styled-components";
-import axios from "axios";
 import Modal from "./Modal";
 import CommentList from "./CommentList"
 import CommentWrite from "./CommentWrite";
-import Heart from "../doubleheart.png"
 
 const Post = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -20,114 +17,6 @@ const Post = (props) => {
   const closeModal = () => {
     setModalOpen(false);
   };
-
-  // const Section = styled.div`
-  //   display: flex;
-  //   -webkit-box-orient: horizontal;
-  //   -webkit-box-direction: normal;
-  //   flex-flow: row nowrap;
-  //   max-width: 935px;
-  //   position: relative;
-  //   width: 100%;
-  //   flex-grow: 1;
-  //   margin: 0 auto;
-  //   padding-top: 30px;
-  // `;
-
-  // const Leftmain = styled.div`
-  //   float: left;
-  //   margin-right: 28px;
-  //   max-width: 614px;
-  //   width: 100%;
-  //   align-items: stretch;
-  //   border: 0 solid #000;
-  //   box-sizing: border-box;
-  //   display: flex;
-  //   -webkit-box-orient: vertical;
-  //   -webkit-box-direction: normal;
-  //   flex-direction: column;
-  //   flex-shrink: 0;
-  //   padding: 0;
-  //   position: relative;
-  // `;
-
-  // const Rightmain = styled.div`
-  //   width: 100%;
-  //   height: 100vh;
-  //   box-sizing: border-box;
-  //   padding: 0;
-  //   display: -webkit-box;
-  //   display: -webkit-flex;
-  //   display: -ms-flexbox;
-  //   display: flex;
-  //   -webkit-align-items: center;
-  //   -webkit-box-align: center;
-  //   -ms-flex-align: center;
-  //   align-items: center;
-  //   border: 0 solid #000;
-  //   max-width: 293px;
-  // `;
-
-  // const Rpcover = styled.div`
-  // display:flex;
-  // `
-
-  // const Rightprofile = styled.div`
-  // margin-top: 18px;
-  // margin-bottom: 10px;
-  // position: relative;
-  // height: auto;
-  // display: flex;
-  // width:100%;
-  // height:auto;
-  // margin-top:18px;
-  // margin-bottom:10px;
-  // align-content: stretch;
-  // border: 0 solid #000;
-  // display: flex;
-  // margin: 0;
-  // padding: 0;
-  // position: relative;
-  // justify-content: space-between;
-  // `
-
-  // const Profileid = styled.div`
-  // flex: 1 1 auto;
-  // min-height: 0;
-  // min-width: 0;
-  // justify-content: center;
-  // width: 100%;
-  // height: 100%;
-  // margin: auto;
-  // `
-
-  const Story = styled.div`
-    background: #fff;
-    border: 1px solid #dbdbdb;
-    border-radius: 3px;
-    margin-bottom: 24px;
-    margin-top: 0;
-    padding: 16px 0;
-    border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
-    display: block;
-    overflow-y: hidden;
-  `;
-
-  const Instory = styled.div`
-    height: 84px;
-    outline: 0;
-    overflow-y: hidden;
-    align-items: stretch;
-    border: 0 solid #000;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    flex-direction: column;
-    flex-shrink: 0;
-    margin: 0;
-    padding: 0;
-    position: relative;
-  `;
 
   const Post = styled.div`
     flex-direction: column;
@@ -272,98 +161,6 @@ const Post = (props) => {
     // margin-bottom : 4px;
     // display:flex;
   `;
-
-  const Emote = styled.div`
-    // display:flex
-    padding: 8px 16px 8px 0;
-  `;
-
-  const Textarea = styled.textarea`
-    flex-grow: 1;
-    font-size: inherit;
-    height: 18px;
-    max-height: 80px;
-    outline: 0;
-    padding: 0;
-    resize: none;
-    border: 0px;
-  `;
-
-  const Commentbutton = styled.button`
-    color: rgba(var(--d69, 0, 149, 246), 1);
-    display: inline;
-    padding: 0;
-    position: relative;
-    border: 0px;
-    text-align: center;
-    text-transform: inherit;
-    text-overflow: ellipsis;
-    // pointer-events: none;
-    // opacity: .3;
-    background: 0 0;
-    font-weight: 600;
-  `;
-
-  //     const Circle = styled.div`
-  //     --size: 56px;
-  //     width: var(--size);
-  //     height: var(--size);
-  //     background-color: rgba(var(--b3f,250,250,250),1);
-  //     border: 1px solid rgba(0,0,0,.0975);
-  //     border: 1px solid rgba(var(--jb7,0,0,0),.0975);
-  //     border-radius: 50%;
-  //     bottom: 0;
-  //     content: '';
-  //     left: 0;
-  //     pointer-events: none;
-  //     position: absolute;
-  //     right: 0;
-  //     top: 0;
-  //     background-image: url("https://cdn.discordapp.com/attachments/578800402036949002/728503946884284496/20200703_154636.jpg");
-  //     background-size: cover;
-  //     margin: 4px;
-  // `;
-
-  const Rightbottom = styled.div`
-    padding-bottom: 38px;
-    width: 100%;
-    height: 100%;
-  `;
-
-  const Nav = styled.div`
-    margin-bottom: 3px;
-    width: 100%;
-    height: 100%;
-  `;
-
-  const Navtxt = styled.a`
-    color: rgba(var(--edc, 199, 199, 199), 1);
-    font-size: 11px;
-    font-weight: 400;
-    line-height: 13px;
-    text-transform: none;
-  `;
-
-  const Copyright = styled.span`
-    color: rgba(var(--edc, 199, 199, 199), 1);
-    font-size: 11px;
-    font-weight: 400;
-    line-height: 13px;
-  `;
-
-  const Double = styled.span`
-  background-image: url('${Heart}')
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  height: 128px;
-  width: 128px;
-  animation-duration: 1000ms;
-  animation-name: like-heart-animation;
-  animation-timing-function: ease-in-out;
-  margin: 0 auto;
-  opacity: 0;
-  transform: scale(0);
-  `
 
   return (
     <Fragment>
