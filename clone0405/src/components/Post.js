@@ -5,6 +5,7 @@ import styled, { keyframes, css } from "styled-components";
 import Modal from "./Modal";
 import CommentList from "./CommentList"
 import CommentWrite from "./CommentWrite";
+import Doubleheart from "../doubleheart.png"
 
 const Post = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -195,6 +196,42 @@ const Post = (props) => {
     `}
   `;
 
+  const DoublefadeIn = keyframes`
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  15%{
+    opacity: .9;
+    transform: scale(1.2);
+  }
+  30% {
+    transform: scale(.95);
+  }
+  45%, 80% {
+    opacity: .9;
+    transform: scale(1);
+  }
+  `
+
+  const [actives, setActives] = useState(false)
+
+  const Double = styled.div`
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  height: 128px;
+  width: 128px;
+  animation-duration: 1s;
+  margin: auto;
+  opacity: 0;
+  animation-timing-function: ease-in-out;
+  background-image: url("${Doubleheart}");
+  z-index: 99;
+  ${actives &&
+    css`animation-name: ${DoublefadeIn};`
+    }
+  `;
+
   return (
     <Fragment>
       <Post>
@@ -240,7 +277,17 @@ const Post = (props) => {
             </Option>
           </Grid2>
           <StoryPic>
-            <Img />
+            <Double
+              onAnimationEnd={() => {
+                setActives(false)
+              }}
+            />
+            <Img
+              onDoubleClick={() => {
+                setActives(true)
+                setLike(true)
+              }}
+            />
           </StoryPic>
           <Mainbox>
             <Mainbox1>
@@ -249,9 +296,9 @@ const Post = (props) => {
                   style={{ marginLeft: "-8px" }}
                   onClick={() => {
                     setActive(true)
-                    if (is_like){
+                    if (is_like) {
                       setLike(false)
-                    }else{
+                    } else {
                       setLike(true)
                     }
                   }
@@ -338,8 +385,5 @@ Post.defaultProps = {
   is_me: false,
   like: "0",
 };
-
-
-
 
 export default Post;
