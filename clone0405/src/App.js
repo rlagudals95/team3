@@ -14,6 +14,7 @@ import Profile from "./pages/Profile";
 import Main from "./components/Main";
 import { Fragment } from "react";
 import Grid2 from "./elements/Grid2";
+import PostWrite from "./pages/PostWrite"
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         <Route exact path="/signup" exact component={Signup} />
         <Route exact path="/test2" exact component={Test2} />
         <Route exact path="/profile" exact component={Profile} />
+        <Route exact path="/postwrite" exact component={PostWrite} />
         <Route path="/" exact component={Main} />
       </ConnectedRouter>
     </React.Fragment>
