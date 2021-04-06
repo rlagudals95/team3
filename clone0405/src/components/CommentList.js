@@ -21,7 +21,7 @@ const CommentList = (props) => {
 
     return (
         <React.Fragment>
-            <CommentItem/>
+            <CommentItem />
         </React.Fragment>
     )
 }
@@ -54,7 +54,7 @@ const CommentItem = (props) => {
             </Comment>
             <Comment>
                 <Commentname>hoon</Commentname> zz123
-                      <Option>
+                <Option>
                     <svg
                         aria-label="좋아요 취소"
                         class="_8-yf5 "

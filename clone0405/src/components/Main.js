@@ -7,15 +7,19 @@ import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 import Header from "./Header";
 import { actionCreators as postActions } from "../redux/modules/post";
+import Loader from "./Loader";
 
 import axios from "axios";
 import Post from "./Post";
 import { useDispatch, useSelector } from "react-redux";
 
+import InfiniteScroll from "react-infinite-scroll-component"
+
 const Main = (props) => {
   const [is_like, setIs_like] = useState(false);
   const post_list = useSelector((state) => state.post.list);
   const dispatch = useDispatch();
+  const paging = useSelector((state) => state.post.paging);
   // console.log(post_list)
 
   // axios
@@ -29,7 +33,7 @@ const Main = (props) => {
   //   });
 
   useEffect(() => {
-    dispatch(postActions.getPostDB());
+    dispatch(postActions.getPostDB(paging.start, paging.size));
   }, []);
 
   const Section = styled.div`
@@ -91,6 +95,10 @@ const Main = (props) => {
     height: 100%;
   `;
 
+  const test = () => {
+    dispatch(postActions.getPostDB(paging.start, paging.size))
+  }
+
   return (
     <Fragment>
       <Header />
@@ -98,13 +106,18 @@ const Main = (props) => {
       <Grid2 bg="rgba(var(--b3f,250,250,250),1)">
         <Section>
           <Leftmain>
-            <Post />
-            {/* <Story>
-              <Instory></Instory>
-            </Story> */}
-            {post_list.map((p, idx) => {
-              return <Post {...p} />;
-            })}
+            <InfiniteScroll
+              dataLength={post_list.length}
+              next={test}
+              hasMore={true}
+              loader={<h4>Loading...</h4>}
+            >
+
+              {post_list.map((p, idx) => {
+                return <Post {...p} />;
+              })}
+
+            </InfiniteScroll>
           </Leftmain>
           <Rightmain>
             <Rightbottom>
