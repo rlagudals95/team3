@@ -12,7 +12,7 @@ import Loader from "./Loader";
 import axios from "axios";
 import Post from "./Post";
 import { useDispatch, useSelector } from "react-redux";
-
+import ReactLoading from 'react-loading';
 import InfiniteScroll from "react-infinite-scroll-component"
 
 const Main = (props) => {
@@ -110,9 +110,8 @@ const Main = (props) => {
               dataLength={post_list.length}
               next={test}
               hasMore={true}
-              loader={<h4>Loading...</h4>}
+              // loader={<><ReactLoading type={type} color={color} height={'80%'} width={'80%'} /></>}
             >
-
               {post_list.map((p, idx) => {
                 return <Post {...p} />;
               })}

@@ -134,7 +134,7 @@ const Post = (props) => {
     padding-bottom: 4800px;
     padding-top: 0px;
     flex-shrink: 0;
-    margin: 0;
+    margin: 1px;
     padding: 0;
     position: relative;
     display: flex;
