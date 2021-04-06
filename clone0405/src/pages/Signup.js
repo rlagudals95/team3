@@ -9,29 +9,31 @@ import { actionsCreators as UserActions } from "../redux/modules/user";
 const Signup = (props) => {
   const dispatch = useDispatch();
 
-  const [user_email, setEmail] = React.useState("");
-  const [nickname, setNickname] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [nickName, setNickname] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [pwd_check, setPwdCheck] = React.useState("");
-  const [user_name, setUserName] = React.useState("");
+  const [passwordChk, setPwdCheck] = React.useState("");
+  const [userName, setUserName] = React.useState("");
 
   const signup = () => {
-    if (user_email === "" || password === "" || user_name === "") {
-      window.alert("아이디, 패스워드, 닉네임을 모두 입력해주세요!");
+    if (email === "" || password === "" || userName === "") {
+      window.alert("아이디, 성함, 패스워드, 닉네임을 모두 입력해주세요!");
       return;
     }
 
-    if (!emailCheck(user_email)) {
+    if (!emailCheck(email)) {
       window.alert("이메일 형식이 맞지 않습니다!");
       return;
     }
 
-    if (password !== pwd_check) {
+    if (password !== passwordChk) {
       window.alert("패스워드와 패스워드 확인이 일치하지 않습니다!");
       return;
     }
 
-    dispatch(UserActions.SignupDB(user_email, nickname, user_name, password));
+    dispatch(
+      UserActions.SignupDB(email, nickName, userName, password, passwordChk)
+    );
   };
 
   return (
@@ -75,6 +77,7 @@ const Signup = (props) => {
               />
               <Input
                 placeholder="패스워드를 확인해 주세요"
+                type="password"
                 _onChange={(e) => {
                   setPwdCheck(e.target.value);
                 }}

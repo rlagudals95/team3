@@ -18,39 +18,51 @@ const logOut = createAction(LOG_OUT, (user) => ({ user }));
 const initialState = {
   user: null,
   is_login: false,
-  user_name: null,
-  nickname: null,
+  // userName: null,
+  // nickName: null,
+  // email: null,
 };
 
 //미들웨어
 
 //회원가입
-const SignupDB = (user_email, nickname, user_name, password) => {
+const SignupDB = (email, nickName, userName, password, passwordChk) => {
   return function (getState, dispatch, { history }) {
+    console.log(email, nickName, userName, password, passwordChk);
     window.alert("연결됨!");
     axios({
       method: "post",
-      url: `${apikey.api}/insta/register`,
+      url: "http://13.125.39.34/insta/register",
 
       data: {
-        email: user_email,
-        user_name: user_name,
+        email: email,
+        nickName: nickName,
+        userName: userName,
         password: password,
-        nickname: nickname,
+        passwordChk: passwordChk,
+      },
+
+      header: {
+        //토큰을 헤더에 서버에서 현재 접속한 유저정보를 알려줌
+        token: localStorage.getItem("token"),
       },
     })
-      .then(() => {
+      .then((res) => {
+        console.log("1234");
+        console.log(res);
+
         dispatch(
           setUser({
-            user_name: user_name,
-            nickname: nickname,
-            email: user_email,
+            userName: userName,
+            nickName: nickName,
+            email: email,
           })
         );
 
-        history.push("/login");
+        history.push("/");
       })
       .catch((e) => {
+        console.log(e);
         window.alert("회원가입 에러", e);
         console.log("회원가입 에러:", e);
       });
@@ -59,20 +71,21 @@ const SignupDB = (user_email, nickname, user_name, password) => {
 
 //로그인
 
-const LoginDB = (user_email, password) => {
+const LoginDB = (email, password) => {
   return function (getState, dispatch, { history }) {
     axios({
       method: "post",
-      url: `${apikey.api}/api/login`,
+      url: `http://13.209.10.75/api/login`,
       data: {
-        email: user_email,
+        insta_Id: email,
         password: password,
       },
     })
       .then((res) => {
+        localStorage.setItem("token", res.data.token); //로컬에다가 토큰저장! res는 서버가 주는값
         dispatch(
           setUser({
-            user_email: user_email,
+            email: email,
           })
         );
         history.push("/");
