@@ -67,23 +67,30 @@ const getPostDB = (start = null, size = null) => {
   };
 };
 
-const addPostDB = (contents = "", file, token) => {
+const addPostDB = (text, item, token) => {
   return function (getState, dispatch, { history }) {
+    console.log(text);
+    console.log(item);
+    console.log(token);
     let formData = new FormData();
-    formData.append("file", file);
-    formData.append("contents", contents);
+
+    formData.append("contents", text);
+    formData.append("boardImg", item);
     formData.append("authorization", token);
     // const image = getState().image.preview;
     // const user_email = getState().user.email;
-    console.log(contents);
+    // console.log(contents);
 
     // console.log(image.data);
 
     const postDB = {
       url: "http://3.36.111.14/insta/board",
       method: "POST",
-
       data: formData,
+      header: {
+        "Content-Type": "multipart/form-data",
+      },
+
       //   headers: {
       //     Authorization: token,
       //   },
