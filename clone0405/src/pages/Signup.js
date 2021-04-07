@@ -140,9 +140,9 @@ const InnerBoxLeft = styled.div`
 
 const Logo = styled.div`
   margin: 20px auto;
-  width: 200px;
-  height: 85px;
-  background-image: url("https://pngimage.net/wp-content/uploads/2018/06/font-instagram-png-5.png");
+  width: 180px;
+  height: 60px;
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/image-community-9d16c.appspot.com/o/images%2Finsta_logo.png?alt=media&token=297d0664-3af3-49d8-b47c-0fccecdc9d0d");
   background-size: cover;
 `;
 

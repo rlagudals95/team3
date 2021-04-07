@@ -20,6 +20,7 @@ const Grid2 = (props) => {
     display,
     textAlign,
     flex_direction,
+    justifyContent,
   } = props;
 
   const styles = {
@@ -39,6 +40,7 @@ const Grid2 = (props) => {
     flex_direction: flex_direction,
     maxWidth: maxWidth,
     position: position,
+    justifyContent: justifyContent,
   };
   return (
     <React.Fragment>
@@ -66,6 +68,7 @@ Grid2.defaultProps = {
   flex_direction: false,
   maxWidth: false,
   position: false,
+  justifyContent: false,
   _onClick: () => {},
 };
 
@@ -91,6 +94,7 @@ const GridBox = styled.div`
   max-width: ${(props) => props.maxWidth};
   flex-direction: ${(props) => props.flex_direction};
   position: ${(props) => props.position};
+  justify-content: ${(props) => props.justifyContent};
 `;
 
 export default Grid2;

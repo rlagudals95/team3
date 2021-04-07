@@ -14,7 +14,8 @@ import Profile from "./pages/Profile";
 import Main from "./components/Main";
 import { Fragment } from "react";
 import Grid2 from "./elements/Grid2";
-import PostWrite from "./pages/PostWrite"
+import PostWrite from "./pages/PostWrite";
+import { Button } from "./elements";
 
 const App = () => {
   return (
@@ -30,6 +31,14 @@ const App = () => {
         <Route exact path="/postwrite" exact component={PostWrite} />
         <Route path="/" exact component={Main} />
       </ConnectedRouter>
+
+      <Button
+        is_float
+        text="+"
+        _onClick={() => {
+          history.push("/postwrite");
+        }}
+      ></Button>
     </React.Fragment>
   );
 };
