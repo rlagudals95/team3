@@ -6,41 +6,6 @@ const CommentWrite = (props) => {
     const [comment_text, setComment_text] = useState("");
     const [able, setAble] = useState(false);
 
-    const Onbutton = styled.button`
-    color: rgba(var(--d69, 0, 149, 246), 1);
-    display: inline;
-    padding: 0;
-    position: relative;
-    border: 0px;
-    text-align: center;
-    text-transform: inherit;
-    text-overflow: ellipsis;
-    pointer-events: none;
-    opacity: .3;
-    background: 0 0;
-    font-weight: 600;
-    `;
-
-    const Offbutton = styled.button`
-    color: rgba(var(--d69, 0, 149, 246), 1);
-    display: inline;
-    padding: 0;
-    position: relative;
-    border: 0px;
-    text-align: center;
-    text-transform: inherit;
-    text-overflow: ellipsis;
-    // pointer-events: none;
-    // opacity: .3;
-    background: 0 0;
-    font-weight: 600;
-    `;
-
-    const Emote = styled.div`
-    // display:flex
-    padding: 8px 16px 8px 0;
-    `;
-
     const onChanged = (e) => {
         setComment_text(e.target.value)
         if (e.target.value === "") {
@@ -90,5 +55,41 @@ const CommentWrite = (props) => {
         </React.Fragment>
     )
 }
+
+
+const Onbutton = styled.button`
+color: rgba(var(--d69, 0, 149, 246), 1);
+display: inline;
+padding: 0;
+position: relative;
+border: 0px;
+text-align: center;
+text-transform: inherit;
+text-overflow: ellipsis;
+pointer-events: none;
+opacity: .3;
+background: 0 0;
+font-weight: 600;
+`;
+
+const Offbutton = styled.button`
+color: rgba(var(--d69, 0, 149, 246), 1);
+display: inline;
+padding: 0;
+position: relative;
+border: 0px;
+text-align: center;
+text-transform: inherit;
+text-overflow: ellipsis;
+// pointer-events: none;
+// opacity: .3;
+background: 0 0;
+font-weight: 600;
+`;
+
+const Emote = styled.div`
+// display:flex
+padding: 8px 16px 8px 0;
+`;
 
 export default CommentWrite;

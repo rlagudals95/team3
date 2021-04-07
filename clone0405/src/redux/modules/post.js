@@ -1,7 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import axios from "axios";
-import { config } from "../../share/config";
+import { config } from "../../config";
 import moment from "moment";
 import "moment/locale/ko";
 import { history } from "../configureStore";
@@ -46,25 +46,25 @@ const initialState = {
 const getPostDB = (start = null, size = null) => {
   return function (dispatch, getState, { history }) {
     // console.log(moment("2021-04-05 17:08:03").fromNow());
-    console.log(start);
     axios({
       method: "GET",
-      url: `${config.api}/post`,
+      url: `${config.api}/insta/main`,
     }).then((docs) => {
-      let result = docs.data.slice(start, size);
+      let result = docs.data.boardAll.slice(start, size);
+      console.log(result)
       if (result.length === 0) {
         return;
       }
       let paging = {
-        start: parseInt(result[result.length - 1].id),
+        start: start + result.length + 1,
         size: size + 5,
       };
-      console.log(paging);
       result.forEach((doc) => {
-        doc.insert_dt = moment(doc.insert_dt).fromNow();
+        console.log(doc)
+        doc.day = moment(new Date(doc.day)).fromNow();
       });
       dispatch(setPost(result, paging));
-    });
+    }).catch((err) => { console.log(err) });
   };
 };
 
