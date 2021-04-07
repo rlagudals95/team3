@@ -18,66 +18,6 @@ const Main = (props) => {
   useEffect(() => {
     dispatch(postActions.getPostDB(paging.start, paging.size));
   }, []);
-
-  const Section = styled.div`
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    flex-flow: row nowrap;
-    max-width: 935px;
-    position: relative;
-    width: 100%;
-    flex-grow: 1;
-    margin: 0 auto;
-    padding-top: 30px;
-  `;
-
-  const Leftmain = styled.div`
-    float: left;
-    margin-right: 28px;
-    max-width: 614px;
-    width: 100%;
-    align-items: stretch;
-    border: 0 solid #000;
-    box-sizing: border-box;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    flex-direction: column;
-    flex-shrink: 0;
-    padding: 0;
-    position: relative;
-  `;
-
-  const Rightmain = styled.div`
-    width: 100%;
-    height: 100vh;
-    box-sizing: border-box;
-    padding: 0;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    border: 0 solid #000;
-    max-width: 293px;
-  `;
-
-  const Rightbottom = styled.div`
-    padding-bottom: 38px;
-    width: 100%;
-    height: 100%;
-  `;
-
-  const Nav = styled.div`
-    margin-bottom: 3px;
-    width: 100%;
-    height: 100%;
-  `;
-
   const test = () => {
     dispatch(postActions.getPostDB(paging.start, paging.size))
   }
@@ -101,7 +41,6 @@ const Main = (props) => {
                     {post_list.map((p, idx) => {
                       return <Post {...p} />;
                     })}
-
                   </InfiniteScroll>
                 </Leftmain>
                 <Rightmain>
@@ -116,5 +55,67 @@ const Main = (props) => {
     </Fragment>
   );
 };
+
+
+
+const Section = styled.div`
+display: flex;
+-webkit-box-orient: horizontal;
+-webkit-box-direction: normal;
+flex-flow: row nowrap;
+max-width: 935px;
+position: relative;
+width: 100%;
+flex-grow: 1;
+margin: 0 auto;
+padding-top: 30px;
+`;
+
+const Leftmain = styled.div`
+float: left;
+margin-right: 28px;
+max-width: 614px;
+width: 100%;
+align-items: stretch;
+border: 0 solid #000;
+box-sizing: border-box;
+display: flex;
+-webkit-box-orient: vertical;
+-webkit-box-direction: normal;
+flex-direction: column;
+flex-shrink: 0;
+padding: 0;
+position: relative;
+`;
+
+const Rightmain = styled.div`
+width: 100%;
+height: 100vh;
+box-sizing: border-box;
+padding: 0;
+display: -webkit-box;
+display: -webkit-flex;
+display: -ms-flexbox;
+display: flex;
+-webkit-align-items: center;
+-webkit-box-align: center;
+-ms-flex-align: center;
+align-items: center;
+border: 0 solid #000;
+max-width: 293px;
+`;
+
+const Rightbottom = styled.div`
+padding-bottom: 38px;
+width: 100%;
+height: 100%;
+`;
+
+const Nav = styled.div`
+margin-bottom: 3px;
+width: 100%;
+height: 100%;
+`;
+
 
 export default Main;

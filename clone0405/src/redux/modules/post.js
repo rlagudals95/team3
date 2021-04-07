@@ -60,7 +60,7 @@ const getPostDB = (start = null, size = null) => {
       };
       console.log(paging);
       result.forEach((doc) => {
-        doc.insert_dt = moment(doc.insert_dt).fromNow();
+        doc.insert_dt = moment(new Date(doc.insert_dt)).fromNow();
       });
       dispatch(setPost(result, paging));
     });
