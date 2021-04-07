@@ -101,7 +101,7 @@ const addPostDB = (text, item, token) => {
       .then((res) => {
         console.log(res);
         window.alert("게시물 작성완료!");
-        history.push("/");
+        history.replace("/");
       })
       .catch((error) => {
         console.log(error);

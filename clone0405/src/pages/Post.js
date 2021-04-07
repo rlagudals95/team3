@@ -388,8 +388,8 @@ ${(props) => (props.actives &&
 
 Post.defaultProps = {
   user_id: "sparta",
-  user_img: "https://cdn.discordapp.com/attachments/578800402036949002/825716597414035517/e.jpg",
-  img: "https://cdn.discordapp.com/attachments/578800402036949002/825716597414035517/e.jpg",
+  user_img: "https://mblogthumb-phinf.pstatic.net/20150427_261/ninevincent_1430122791768m7oO1_JPEG/kakao_1.jpg?type=w2",
+  img: "https://mblogthumb-phinf.pstatic.net/20150427_261/ninevincent_1430122791768m7oO1_JPEG/kakao_1.jpg?type=w2",
   contents: "내용",
   insert_dt: "2분 전",
   is_me: false,
