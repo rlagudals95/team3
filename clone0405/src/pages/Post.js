@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import Image2 from "../elements/Image2";
 import Grid2 from "../elements/Grid2";
 import styled, { keyframes, css } from "styled-components";
@@ -11,7 +11,6 @@ const Post = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [active, setActive] = useState(false)
   const [is_like, setLike] = useState(false)
-  const [actives, setActives] = useState(false)
 
   const openModal = (e) => {
     console.log("1");
@@ -22,10 +21,220 @@ const Post = (props) => {
     setModalOpen(false);
   };
 
+  const Post = styled.div`
+    flex-direction: column;
+    padding-bottom: 4800px;
+    padding-top: 0px;
+    flex-shrink: 0;
+    margin: 1px;
+    padding: 0;
+    position: relative;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    box-sizing: border-box;
+    align-items: stretch;
+    border: 0 solid #000;
+    -webkit-box-align: stretch;
+  `;
+
+  const Posting = styled.div`
+    border-radius: 3px;
+    border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+    background-color: rgba(var(--d87, 255, 255, 255), 1);
+    margin-left: -1px;
+    margin-right: -1px;
+    align-items: stretch;
+    margin-bottom: 60px;
+  `;
+
+  const StoryPic = styled.div`
+    position: relative;
+    display: flex;
+    height: 500px;
+  `;
+
+  const Img = styled.img`
+    height: 100%;
+    width: 100%;
+    // left: 0;
+    position: absolute;
+    // top: 0;
+    // object-fit:cover;
+    // display:flex;
+    // justify-content:center;
+    // align-items:center;
+    background-size: cover;
+    background-image: url("${props.img}");
+  `;
+
+  const Profilename = styled.p`
+    margin-left: 10px;
+    // display: flex;
+    font-weight: 600;
+    font-size: 14px;
+  `;
+
+  const Mainbox = styled.div``;
+
+  const Mainbox1 = styled.div`
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-top: 4px;
+    display: flex;
+  `;
+
+  const Fav = styled.div`
+    // maring: 0px auto;
+    // align-items: center;
+  `;
+
+  const Fav2 = styled.div`
+    margin-right: -10px;
+    margin-left: auto;
+  `;
+
+  const Favbox = styled.div`
+    padding: 8px;
+    display: flex;
+    margin: 0;
+    position: relative;
+    align-items: center;
+    justify-content: cover;
+  `;
+
+  const Mainbox2 = styled.div`
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 14px;
+  `;
+
+  const Mainbox3 = styled.div`
+    margin: 0 0 auto;
+    padding: 0 16px;
+  `;
+
+  const Mainbox4 = styled.div`
+    margin: 0px 0px 6px 0px;
+    padding-left: 16px;
+    position: relative;
+  `;
+
+  const Mainbox5 = styled.div`
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-top: 4px;
+    border-top: 1px solid rgba(var(--ce3, 239, 239, 239), 1);
+    font-size: 14px;
+    line-height: 18px;
+    min-height: 56px;
+    display: flex;
+  `;
+
+  const Commentname = styled.span`
+    font-weight: 600;
+    font-size: 14px;
+    margin-right: 4px;
+  `;
+
+  const Comment = styled.p`
+    font-weight: 400;
+    font-size: 14px;
+    margin: 0px auto;
+    margin-bottom: 2px;
+    display: flex;
+  `;
+
+  const Option = styled.div`
+    margin-left: auto;
+    cursor: pointer;
+  `;
+
+  const Postdate = styled.p`
+    letter-spacing: 0.2px;
+    line-height: 18px;
+    font-size: 10px;
+    color: rgba(var(--f52, 142, 142, 142), 1);
+    margin: 0px auto;
+    // font-weight: 400;
+    // font-size: 14px;
+    // margin: 0px auto;
+    // margin-bottom : 4px;
+    // display:flex;
+  `;
+
+
+  const fadeIn = keyframes`
+  0% {
+  transform: scale(1);
+  }
+  25%{
+    transform: scale(1.2)
+  }
+  50% {
+  transform: scale(0.95);
+  }
+  100% {
+  transform: scale(1);
+  }
+  `
+
+  const Likebox = styled.div`
+  padding: 8px;
+  display: flex;
+  margin: 0;
+  position: relative;
+  align - items: center;
+  justify - content: cover;
+  animation-duration: 0.45s;
+  animation-timing-function: ease-in-out;
+  ${active &&
+    css`
+      animation-name: ${fadeIn};
+    `}
+  `;
+
+  const DoublefadeIn = keyframes`
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  15%{
+    opacity: .9;
+    transform: scale(1.2);
+  }
+  30% {
+    transform: scale(.95);
+  }
+  45%, 80% {
+    opacity: .9;
+    transform: scale(1);
+  }
+  `
+
+  const [actives, setActives] = useState(false)
+
+  const Double = styled.div`
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  height: 128px;
+  width: 128px;
+  animation-duration: 1s;
+  margin: auto;
+  opacity: 0;
+  animation-timing-function: ease-in-out;
+  background-image: url("${Doubleheart}");
+  z-index: 99;
+  ${actives &&
+    css`animation-name: ${DoublefadeIn};`
+    }
+  `;
 
   return (
     <Fragment>
-      <Inpost>
+      <Post>
         <Posting>
           <Grid2 is_flex width="auto" height="60px" padding="16px">
             <Image2
@@ -69,13 +278,11 @@ const Post = (props) => {
           </Grid2>
           <StoryPic>
             <Double
-              actives={actives}
               onAnimationEnd={() => {
                 setActives(false)
               }}
             />
             <Img
-              img={props.img}
               onDoubleClick={() => {
                 setActives(true)
                 setLike(true)
@@ -86,11 +293,7 @@ const Post = (props) => {
             <Mainbox1>
               <Fav>
                 <Likebox
-                  active={active}
                   style={{ marginLeft: "-8px" }}
-                  onAnimationEnd={() => {
-                    setActive(false)
-                  }}
                   onClick={() => {
                     setActive(true)
                     if (is_like) {
@@ -167,223 +370,11 @@ const Post = (props) => {
             </Mainbox5>
           </Mainbox>
         </Posting>
-      </Inpost>
+      </Post>
       <Modal open={modalOpen} close={closeModal} header={"123"} />
     </Fragment>
   );
 };
-
-
-
-const Inpost = styled.div`
-flex-direction: column;
-padding-bottom: 4800px;
-padding-top: 0px;
-flex-shrink: 0;
-margin: 1px;
-padding: 0;
-position: relative;
-display: flex;
--webkit-box-orient: vertical;
--webkit-box-direction: normal;
-box-sizing: border-box;
-align-items: stretch;
-border: 0 solid #000;
--webkit-box-align: stretch;
-`;
-
-const Posting = styled.div`
-border-radius: 3px;
-border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
-background-color: rgba(var(--d87, 255, 255, 255), 1);
-margin-left: -1px;
-margin-right: -1px;
-align-items: stretch;
-margin-bottom: 60px;
-`;
-
-const StoryPic = styled.div`
-position: relative;
-display: flex;
-height: 500px;
-`;
-
-const Img = styled.img`
-height: 100%;
-width: 100%;
-// left: 0;
-position: absolute;
-// top: 0;
-// object-fit:cover;
-// display:flex;
-// justify-content:center;
-// align-items:center;
-background-size: cover;
-background-image: url("${(props) => props.img}");
-`;
-
-const Profilename = styled.p`
-margin-left: 10px;
-// display: flex;
-font-weight: 600;
-font-size: 14px;
-`;
-
-const Mainbox = styled.div``;
-
-const Mainbox1 = styled.div`
-padding-left: 16px;
-padding-right: 16px;
-margin-top: 4px;
-display: flex;
-`;
-
-const Fav = styled.div`
-// maring: 0px auto;
-// align-items: center;
-`;
-
-const Fav2 = styled.div`
-margin-right: -10px;
-margin-left: auto;
-`;
-
-const Favbox = styled.div`
-padding: 8px;
-display: flex;
-margin: 0;
-position: relative;
-align-items: center;
-justify-content: cover;
-`;
-
-const Mainbox2 = styled.div`
-padding-left: 16px;
-padding-right: 16px;
-margin-bottom: 8px;
-font-weight: 600;
-font-size: 14px;
-`;
-
-const Mainbox3 = styled.div`
-margin: 0 0 auto;
-padding: 0 16px;
-`;
-
-const Mainbox4 = styled.div`
-margin: 0px 0px 6px 0px;
-padding-left: 16px;
-position: relative;
-`;
-
-const Mainbox5 = styled.div`
-padding-left: 16px;
-padding-right: 16px;
-margin-top: 4px;
-border-top: 1px solid rgba(var(--ce3, 239, 239, 239), 1);
-font-size: 14px;
-line-height: 18px;
-min-height: 56px;
-display: flex;
-`;
-
-const Commentname = styled.span`
-font-weight: 600;
-font-size: 14px;
-margin-right: 4px;
-`;
-
-const Comment = styled.p`
-font-weight: 400;
-font-size: 14px;
-margin: 0px auto;
-margin-bottom: 2px;
-display: flex;
-`;
-
-const Option = styled.div`
-margin-left: auto;
-cursor: pointer;
-`;
-
-const Postdate = styled.p`
-letter-spacing: 0.2px;
-line-height: 18px;
-font-size: 10px;
-color: rgba(var(--f52, 142, 142, 142), 1);
-margin: 0px auto;
-// font-weight: 400;
-// font-size: 14px;
-// margin: 0px auto;
-// margin-bottom : 4px;
-// display:flex;
-`;
-
-
-const fadeIn = keyframes`
-0% {
-transform: scale(1);
-}
-25%{
-transform: scale(1.2)
-}
-50% {
-transform: scale(0.95);
-}
-100% {
-transform: scale(1);
-}
-`
-
-const Likebox = styled.div`
-padding: 8px;
-display: flex;
-margin: 0;
-position: relative;
-align - items: center;
-justify - content: cover;
-animation-duration: 0.45s;
-animation-timing-function: ease-in-out;
-${(props) => (props.active &&
-    css`
-  animation-name: ${fadeIn};
-`)}
-`;
-
-const DoublefadeIn = keyframes`
-0%, 100% {
-opacity: 0;
-transform: scale(0);
-}
-15%{
-opacity: .9;
-transform: scale(1.2);
-}
-30% {
-transform: scale(.95);
-}
-45%, 80% {
-opacity: .9;
-transform: scale(1);
-}
-`
-
-
-const Double = styled.div`
-background-repeat: no-repeat;
-background-position: 0 0;
-height: 128px;
-width: 128px;
-animation-duration: 1s;
-margin: auto;
-opacity: 0;
-animation-timing-function: ease-in-out;
-background-image: url("${Doubleheart}");
-z-index: 99;
-${(props) => (props.actives &&
-    css`animation-name: ${DoublefadeIn};`
-  )}
-`;
 
 Post.defaultProps = {
   user_id: "sparta",

@@ -24,8 +24,8 @@ const getProfileDB = (user_email) => {
         );
       })
       .catch((e) => {
-        window.alert("로그인 에러", e);
-        console.log("로그인 에러", e);
+        window.alert("프로필 에러", e);
+        console.log("프로필 에러", e);
       });
   };
 };
@@ -33,7 +33,7 @@ const getProfileDB = (user_email) => {
 //
 const initialState = {
   //여기서 useSelector로 긁어서 가져가야한다
-  image: "hi",
+  image: [],
 };
 
 //

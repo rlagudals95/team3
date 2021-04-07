@@ -3,6 +3,7 @@ import produce from "immer";
 import axios from "axios";
 import { setCookie, deleteCookie } from "../../share/Cookie";
 import { apikey } from "../../share/apikey";
+import { history } from "../configureStore";
 
 //액션타입
 
@@ -18,12 +19,50 @@ const logOut = createAction(LOG_OUT, (user) => ({ user }));
 const initialState = {
   user: null,
   is_login: false,
-  // userName: null,
-  // nickName: null,
-  // email: null,
 };
 
 //미들웨어
+
+// 로그인 체크
+const loginCheck = (local_info, token) => {
+  return function (dispatch) {
+    if (local_info) {
+      // 로컬 스토리지에 토큰이 있다면
+      const options = {
+        url: "http://3.36.111.14/insta/check",
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json;charset=UTF-8",
+          token: token,
+        },
+      };
+      axios(options)
+        .then((response) => {
+          console.log(response.data);
+          dispatch(setUser(response.data));
+        })
+        .catch((error) => {
+          console.log(error);
+          if (error.response) {
+            window.alert(error.response.data.errorMessage);
+          }
+        });
+    } else {
+      dispatch(logOutSV());
+    }
+  };
+};
+
+// 로그아웃
+const logOutSV = (history) => {
+  return function (dispatch) {
+    localStorage.removeItem("token");
+    dispatch(logOut());
+
+    dispatch(setUser());
+  };
+};
 
 //회원가입
 const SignupDB = (email, nickName, userName, password, passwordChk) => {
@@ -41,16 +80,11 @@ const SignupDB = (email, nickName, userName, password, passwordChk) => {
         password: password,
         passwordChk: passwordChk,
       },
-
-      // header: {
-      //   //토큰을 헤더에 서버에서 현재 접속한 유저정보를 알려줌
-      //   token: localStorage.getItem("token"),
-      // },
     })
-      .then((res) => {
+      .then((user) => {
         // console.log("1234");
         // console.log(res);
-        console.log(res);
+        console.log(user);
         // localStorage.setItem("token", res.data.token);
 
         dispatch(
@@ -86,11 +120,8 @@ const LoginDB = (email, password) => {
       .then((res) => {
         console.log(res);
         localStorage.setItem("token", res.data.token); //로컬에다가 토큰저장! res는 서버가 주는값
-        dispatch(
-          setUser({
-            email: email,
-          })
-        );
+        console.log(email);
+        dispatch(setUser(email));
         history.push("/");
       })
       .catch((e) => {
@@ -116,6 +147,7 @@ export default handleActions(
         setCookie("is_login", "login success");
         draft.user = action.payload.user;
         draft.is_login = true;
+        console.log(action.payload.user);
       }),
     [GET_USER]: (state, action) =>
       produce(state, (draft) => {
@@ -137,6 +169,10 @@ export const actionsCreators = {
   LoginDB,
   logoutDB,
   getUser,
+  setUser,
+  loginCheck,
+  logOutSV,
+  logoutDB,
 };
 
 // import { createAction, handleActions } from "redux-actions";

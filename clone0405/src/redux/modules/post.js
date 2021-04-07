@@ -4,6 +4,7 @@ import axios from "axios";
 import { config } from "../../share/config";
 import moment from "moment";
 import "moment/locale/ko";
+import { history } from "../configureStore";
 
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
@@ -60,7 +61,7 @@ const getPostDB = (start = null, size = null) => {
       };
       console.log(paging);
       result.forEach((doc) => {
-        doc.insert_dt = moment(new Date(doc.insert_dt)).fromNow();
+        doc.insert_dt = moment(doc.insert_dt).fromNow();
       });
       dispatch(setPost(result, paging));
     });
@@ -76,7 +77,7 @@ const addPostDB = (text, item, token) => {
 
     formData.append("contents", text);
     formData.append("boardImg", item);
-    formData.append("authorization", token);
+    // formData.append("authorization", token);
     // const image = getState().image.preview;
     // const user_email = getState().user.email;
     // console.log(contents);
@@ -87,23 +88,20 @@ const addPostDB = (text, item, token) => {
       url: "http://3.36.111.14/insta/board",
       method: "POST",
       data: formData,
-      header: {
+      headers: {
+        // headers??????????????????
+        authorization: token,
+        // Accept: "application/json",
+        // "Content-Type": "application/json;charset=UTF-8",
         "Content-Type": "multipart/form-data",
       },
-
-      //   headers: {
-      //     Authorization: token,
-      //   },
-      //   data: {
-      //     // tag: tag,
-      //     image: formData,
-      //     contents: contents,
-      //   },
     };
+    console.log(postDB);
     axios(postDB)
       .then((res) => {
         console.log(res);
         window.alert("게시물 작성완료!");
+        history.push("/");
       })
       .catch((error) => {
         console.log(error);

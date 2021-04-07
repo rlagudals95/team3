@@ -8,9 +8,19 @@ import { withRouter } from "react-router";
 import { Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
+import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
+import { actionsCreators as userActions } from "../redux/modules/user";
+
+import { useDispatch, useSelector } from "react-redux";
+
+// const user_info = useSelector((state) => state.user);
+
+// console.log(user_info);
 
 const Header = (props) => {
   const { src } = props;
+
+  const dispatch = useDispatch();
 
   const styles = { src: src };
   return (
@@ -27,6 +37,14 @@ const Header = (props) => {
             Instagram */}
           </Logo>
           <BtnBox>
+            <Btn>
+              <MeetingRoomIcon
+                onClick={() => {
+                  dispatch(userActions.logOutSV(history));
+                  history.replace("/login");
+                }}
+              />
+            </Btn>
             <Btn>
               <HomeIcon
                 onClick={() => {
@@ -54,6 +72,8 @@ Header.defaultProps = {
   src:
     "https://img.freepik.com/free-photo/white-cloud-blue-sky-sea_74190-4488.jpg?size=626&ext=jpg&ga=GA1.2.838545545.1616457600",
 };
+
+const LogOutBtn = styled.div``;
 
 const HeaderBox = styled.div`
   display: flex;

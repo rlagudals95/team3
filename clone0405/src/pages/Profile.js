@@ -7,13 +7,15 @@ import { actionsCreators as ProfileActions } from "../redux/modules/profileUploa
 import { useDispatch, useSelector } from "react-redux";
 
 const Profile = () => {
-  const nickname = useSelector((state) => state.user.nickname);
+  const user_info = useSelector((state) => state.user);
   const ProfileImgs = useSelector((state) => state.profileUpload.image);
   const dispatch = useDispatch();
 
+  console.log(user_info);
   //이제 유즈 셀렉터로 가져오면 오류 안나려나? //signupDB > setUser된 데이터를 가져와서 보내준다
   //그렇게 하면 현재 접속한 유저의 image정보를 가지고 오면 되지 않을까?
   const email = useSelector((state) => state.user.email);
+  // const nickname = useSelector((state) => state.user.nickName);
 
   React.useEffect(() => {
     dispatch(ProfileActions.getProfile(email));
@@ -29,7 +31,7 @@ const Profile = () => {
         <ProfileImg />
         <ProfileName>
           {/* 유즈 셀렉터로 닉네임 받자 */}
-          nick_name{nickname}
+          nick_name
           <hr style={{ marginTop: "20px", width: "100%" }}></hr>
         </ProfileName>
       </UpBox>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./components/Header";
 
 import "./App.css";
@@ -16,8 +16,25 @@ import { Fragment } from "react";
 import Grid2 from "./elements/Grid2";
 import PostWrite from "./pages/PostWrite";
 import { Button } from "./elements";
+import { useDispatch } from "react-redux";
+import { actionsCreators as userActions } from "./redux/modules/user";
 
 const App = () => {
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
+
+  // const [token, setToken] = useState("");
+
+  const is_local = token ? true : false; //상태관리
+  React.useEffect(() => {
+    dispatch(userActions.loginCheck(is_local, token)); //렌더링 마다 로그인체크
+  });
+
+  if (token && history.location.pathname === "/login") {
+    //토큰이 있지만 로그인 페이지다?
+    history.push("/");
+  } // 로그인이 되어있지만
+
   return (
     <React.Fragment>
       <ConnectedRouter history={history}>
