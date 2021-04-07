@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Image2 from "../elements/Image2";
 import Grid2 from "../elements/Grid2";
-import CommentWrite from "../components/CommentWrite";
+import CommentWrite from "./CommentWrite";
 import Upload from "../components/Upload";
 import Input from "../elements/Input";
 import { FormatBoldRounded } from "@material-ui/icons";

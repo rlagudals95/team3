@@ -11,7 +11,7 @@ import Test2 from "./components/Test2";
 import styled from "styled-components";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
-import Main from "./components/Main";
+import Main from "./pages/Main";
 import { Fragment } from "react";
 import Grid2 from "./elements/Grid2";
 import PostWrite from "./pages/PostWrite";
