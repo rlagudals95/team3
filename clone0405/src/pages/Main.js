@@ -14,12 +14,13 @@ const Main = (props) => {
   const dispatch = useDispatch();
   const paging = useSelector((state) => state.post.paging);
   const loading = useSelector((state) => state.post.is_loading);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    dispatch(postActions.getPostDB(paging.start, paging.size));
+    dispatch(postActions.getPostDB(paging.start, paging.size, token));
   }, []);
   const test = () => {
-    dispatch(postActions.getPostDB(paging.start, paging.size))
+    dispatch(postActions.getPostDB(paging.start, paging.size, token))
   }
 
   return (

@@ -9,6 +9,7 @@ import { history } from "../configureStore";
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
 const LOADING = "LOADING";
+const UPDATE_POST = "UPDATE_POST";
 
 const setPost = createAction(SET_POST, (post_list, paging) => ({
   post_list,
@@ -16,10 +17,12 @@ const setPost = createAction(SET_POST, (post_list, paging) => ({
 }));
 const addPost = createAction(ADD_POST, (post) => ({ post }));
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
+const updatePost = createAction(UPDATE_POST, (post_idx, msg) => ({ post_idx, msg }));
 
 const initialState = {
   list: [],
   paging: { start: null, size: 5 },
+  likelist: [],
 };
 
 //글 작성
@@ -43,28 +46,50 @@ const initialState = {
 //     };
 // };
 
-const getPostDB = (start = null, size = null) => {
+const getPostDB = (start = null, size = null, token) => {
   return function (dispatch, getState, { history }) {
     // console.log(moment("2021-04-05 17:08:03").fromNow());
-    axios({
+    const postDB = {
       method: "GET",
       url: `${config.api}/insta/main`,
-    }).then((docs) => {
-      let result = docs.data.boardAll.slice(start, size);
-      console.log(result)
-      if (result.length === 0) {
-        return;
-      }
-      let paging = {
-        start: start + result.length + 1,
-        size: size + 5,
-      };
-      result.forEach((doc) => {
-        console.log(doc)
-        doc.day = moment(new Date(doc.day)).fromNow();
-      });
-      dispatch(setPost(result, paging));
-    }).catch((err) => { console.log(err) });
+      headers: {
+        authorization: token,
+      },
+    }
+    axios(postDB)
+      .then((docs) => {
+        let result = docs.data.boardAll.slice(start, size);
+        if (result.length === 0) {
+          return;
+        }
+        let paging = {
+          start: start + result.length + 1,
+          size: size + 5,
+        };
+        const likeYn_list = docs.data.likeYn.map((p, idx) => {
+          return ({
+            post_id: p.boardId._id,
+            user_id: p.userId
+          })
+        })
+        result.forEach((doc) => {
+          doc.day = moment(new Date(doc.day)).fromNow();
+
+          const is_like = likeYn_list.find((a) => {
+            if (a.post_id === doc._id && a.user_id === doc.userId._id) {
+              return true;
+            } else {
+              return false;
+            }
+          })
+          if (is_like) {
+            doc.likeYn = "like";
+          } else {
+            doc.likeYn = "unLike";
+          }
+        });
+        dispatch(setPost(result, paging));
+      }).catch((err) => { console.log(err) });
   };
 };
 
@@ -99,7 +124,12 @@ const addPostDB = (text, item, token) => {
     console.log(postDB);
     axios(postDB)
       .then((res) => {
-        console.log(res);
+        let result = {
+          contents: text,
+          day: moment(new Date()).fromNow(),
+          img: item,
+          userID: {}
+        }
         window.alert("게시물 작성완료!");
         history.replace("/");
       })
@@ -116,15 +146,24 @@ export default handleActions(
   {
     [SET_POST]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload.post_list);
         draft.list.push(...action.payload.post_list);
-        console.log(action.payload.paging);
         draft.paging = action.payload.paging;
+        draft.likelist = action.payload.likelist;
       }),
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list.unshift(action.payload.post);
       }),
+    [UPDATE_POST]: (state, action) =>
+      produce(state, (draft) => {
+        let idx = draft.list.findIndex((p) => p._id === action.payload.post_idx);
+        draft.list[idx].likeYn = action.payload.msg;
+        if (action.payload.msg === "like"){
+          draft.list[idx].like = parseInt(draft.list[idx].like) + 1
+        }else{
+          draft.list[idx].like = parseInt(draft.list[idx].like) - 1
+        }
+      })
   },
   initialState
 );
@@ -133,6 +172,7 @@ const actionCreators = {
   getPostDB,
   setPost,
   addPostDB,
+  updatePost,
 };
 
 export { actionCreators };

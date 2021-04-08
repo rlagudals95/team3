@@ -8,12 +8,14 @@ import User from "./modules/user";
 import Post from "./modules/post";
 // import Post from "./modules/post";
 import Image from "./modules/image";
+import Like from "./modules/like";
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
   user: User,
   post: Post,
+  like: Like,
   profileUpload: ProfileUpload,
   image: Image,
   router: connectRouter(history),
