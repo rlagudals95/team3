@@ -28,30 +28,8 @@ const initialState = {
   likelist: [],
 };
 
-//글 작성
-// const addPostDB = (user_id, post_img, post_contents) => {
-//     return function (dispatch, getState, { history }) {
-//         axios({
-//             method: 'post',
-//             url: `${config.api}/post`,
-//             data: {
-//                 insert_dt: insert_dt,
-//                 user_id: user_id,
-//                 user_img: user_img,
-//                 post_img: post_img,
-//                 post_contents, post_contents,
-//             },
-//         }).then((res) => {
-//             history.push('/');
-//         }).catch((err) => {
-//             console.log('에러', err);
-//         });
-//     };
-// };
-
 const getPostDB = (start = null, size = null, token) => {
   return function (dispatch, getState, { history }) {
-    // console.log(moment("2021-04-05 17:08:03").fromNow());
     const postDB = {
       method: "GET",
       url: `${config.api}/insta/main`,

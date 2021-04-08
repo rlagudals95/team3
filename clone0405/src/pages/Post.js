@@ -13,12 +13,10 @@ const Post = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [active, setActive] = useState(false);
   const [actives, setActives] = useState(false);
-  console.log(props.likeYn);
 
   const dispatch = useDispatch();
 
   const openModal = (e) => {
-    console.log("1");
     setModalOpen(true);
   };
 

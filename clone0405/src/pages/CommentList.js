@@ -1,23 +1,7 @@
 import React, { useEffect } from "react";
-// import { Grid, Image, Text } from "../elements";
-// import { useDispatch, useSelector } from "react-redux";
-// import { actionCreators as commentActions } from "../redux/modules/comment"
 import styled from "styled-components"
 
 const CommentList = (props) => {
-
-    // const dispatch = useDispatch();
-    // const comment_list = useSelector(state => state.comment.list);
-    // const { post_id } = props;
-    // useEffect(() => {
-    //     if (!comment_list[post_id]) {
-    //         dispatch(commentActions.getCommentFB(post_id));
-    //     }
-    // }, []);
-
-    // if (!comment_list[post_id] || !post_id) {
-    //     return null;
-    // }
 
     return (
         <React.Fragment>
@@ -38,7 +22,7 @@ const CommentItem = (props) => {
     return (
         <>
             <Comment>
-                <Commentname>ho123on</Commentname> zz
+                <Commentname>test</Commentname> 기능은 만들었지만
                 <Option>
                     <svg
                         aria-label="좋아요"
@@ -53,7 +37,7 @@ const CommentItem = (props) => {
                 </Option>
             </Comment>
             <Comment>
-                <Commentname>hoon</Commentname> zz123
+                <Commentname>test</Commentname> 시간이 없었다는게 너무 슬프다
                 <Option>
                     <svg
                         aria-label="좋아요 취소"

@@ -9,7 +9,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Spinner from "./Spinner";
 
 const Main = (props) => {
-  // const [is_like, setIs_like] = React.useState(false);
   const post_list = useSelector((state) => state.post.list);
   const dispatch = useDispatch();
   const paging = useSelector((state) => state.post.paging);
@@ -23,7 +22,6 @@ const Main = (props) => {
     dispatch(postActions.getPostDB(paging.start, paging.size, token));
   };
 
-  console.log(post_list);
   return (
     <Fragment>
       {loading ? (
@@ -39,7 +37,6 @@ const Main = (props) => {
                   dataLength={post_list.length}
                   next={test}
                   hasMore={true}
-                  // loader={<><ReactLoading type={type} color={color} height={'80%'} width={'80%'} /></>}
                 >
                   {post_list.map((p, idx) => {
                     return <Post {...p} />;
