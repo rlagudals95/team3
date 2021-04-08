@@ -1,4 +1,4 @@
-# 인스타그램 클론코딩 (Front-end) // Back-end : [깃허브 주소][googlelink]
+# 인스타그램 클론코딩 (Front-end) // Back-end : [깃허브][googlelink]
 [googlelink]: https://github.com/WonDongGyun/instagram_clonCording/
 
 ## 🖥 프로젝트 소개
@@ -20,6 +20,7 @@
 * UseEffect와 UseState를 이용한 좋아요 변경 기능
 * axios를 이용하여 포스트 5개씩 가져오며 moment를 사용하여 시간 정보 보여주기 구현
 * 메인 페이지 무한 스크롤 기능 적용
+* 스피너 기능
 
 ### [게시글 추가 페이지]
 * axios로 서버와 통신하여 게시물 추가 기능 구현
