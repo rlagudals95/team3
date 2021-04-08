@@ -4,6 +4,7 @@ import styled from "styled-components";
 const ProfilePost = (props) => {
   const { width, margin, padding, bg, center, height } = props;
 
+  console.log(props);
   const styles = {
     width: width,
     margin: margin,
@@ -13,7 +14,8 @@ const ProfilePost = (props) => {
     height: height,
   };
 
-  return <Card {...styles} />; //여기 props.image 같은걸 넣어야 할 것 같다
+  return <Card {...styles} />;
+  //여기 props.image 같은걸 넣어야 할 것 같다
 };
 
 ProfilePost.defaultProps = {
@@ -25,6 +27,11 @@ ProfilePost.defaultProps = {
     "https://static.hubzum.zumst.com/hubzum/2020/03/11/10/6eb94133c3434155a608e2af67f9ef9e.jpg",
 };
 
+// const CardBox = styled.div`
+//   position: absolute;
+//   top: 400px;
+// `;
+
 const Card = styled.div`
   margin-top: -20px;
   width: ${(props) => props.width};
@@ -33,6 +40,7 @@ const Card = styled.div`
   ${(props) => (props.bg ? `background-image: url(${props.bg})` : "")}
   box-sizing: border-box;
   cursor: pointer;
+  background-size: cover;
   background-image: url(${(props) => props.bg});
   /* background-image: url("https://static.hubzum.zumst.com/hubzum/2020/03/11/10/6eb94133c3434155a608e2af67f9ef9e.jpg"); */
   /* background-color: red; */

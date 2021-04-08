@@ -12,7 +12,7 @@ import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import { actionsCreators as userActions } from "../redux/modules/user";
 
 import { useDispatch, useSelector } from "react-redux";
-
+import { actionsCreators as profileActions } from "../redux/modules/profileUpload";
 // const user_info = useSelector((state) => state.user);
 
 // console.log(user_info);
@@ -21,6 +21,8 @@ const Header = (props) => {
   const { src } = props;
 
   const dispatch = useDispatch();
+
+  const token = localStorage.getItem("token");
 
   const styles = { src: src };
   return (
@@ -59,6 +61,7 @@ const Header = (props) => {
               {...styles}
               onClick={() => {
                 history.push("/profile"); //profile로 가기로 하자
+                dispatch(profileActions.getProfileDB(token));
               }}
             />
           </BtnBox>

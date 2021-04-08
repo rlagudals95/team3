@@ -18,6 +18,7 @@ import PostWrite from "./pages/PostWrite";
 import { Button } from "./elements";
 import { useDispatch } from "react-redux";
 import { actionsCreators as userActions } from "./redux/modules/user";
+import Permit from "./share/Permit";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -26,9 +27,9 @@ const App = () => {
   // const [token, setToken] = useState("");
 
   const is_local = token ? true : false; //상태관리
-  React.useEffect(() => {
-    dispatch(userActions.loginCheck(is_local, token)); //렌더링 마다 로그인체크
-  });
+  // React.useEffect(() => {
+  //   dispatch(userActions.loginCheck(is_local, token)); //렌더링 마다 로그인체크
+  // });
 
   if (token && history.location.pathname === "/login") {
     //토큰이 있지만 로그인 페이지다?
@@ -48,14 +49,15 @@ const App = () => {
         <Route exact path="/postwrite" exact component={PostWrite} />
         <Route path="/" exact component={Main} />
       </ConnectedRouter>
-
-      <Button
-        is_float
-        text="+"
-        _onClick={() => {
-          history.push("/postwrite");
-        }}
-      ></Button>
+      <Permit>
+        <Button
+          is_float
+          text="+"
+          _onClick={() => {
+            history.push("/postwrite");
+          }}
+        ></Button>
+      </Permit>
     </React.Fragment>
   );
 };

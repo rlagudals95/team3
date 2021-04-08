@@ -17,7 +17,10 @@ const setPost = createAction(SET_POST, (post_list, paging) => ({
 }));
 const addPost = createAction(ADD_POST, (post) => ({ post }));
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
-const updatePost = createAction(UPDATE_POST, (post_idx, msg) => ({ post_idx, msg }));
+const updatePost = createAction(UPDATE_POST, (post_idx, msg) => ({
+  post_idx,
+  msg,
+}));
 
 const initialState = {
   list: [],
@@ -55,7 +58,7 @@ const getPostDB = (start = null, size = null, token) => {
       headers: {
         authorization: token,
       },
-    }
+    };
     axios(postDB)
       .then((docs) => {
         let result = docs.data.boardAll.slice(start, size);
@@ -67,11 +70,11 @@ const getPostDB = (start = null, size = null, token) => {
           size: size + 5,
         };
         const likeYn_list = docs.data.likeYn.map((p, idx) => {
-          return ({
+          return {
             post_id: p.boardId._id,
-            user_id: p.userId
-          })
-        })
+            user_id: p.userId,
+          };
+        });
         result.forEach((doc) => {
           doc.day = moment(new Date(doc.day)).fromNow();
 
@@ -81,7 +84,7 @@ const getPostDB = (start = null, size = null, token) => {
             } else {
               return false;
             }
-          })
+          });
           if (is_like) {
             doc.likeYn = "like";
           } else {
@@ -89,7 +92,10 @@ const getPostDB = (start = null, size = null, token) => {
           }
         });
         dispatch(setPost(result, paging));
-      }).catch((err) => { console.log(err) });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };
 
@@ -128,8 +134,8 @@ const addPostDB = (text, item, token) => {
           contents: text,
           day: moment(new Date()).fromNow(),
           img: item,
-          userID: {}
-        }
+          userID: {},
+        };
         window.alert("게시물 작성완료!");
         history.replace("/");
       })
@@ -156,14 +162,16 @@ export default handleActions(
       }),
     [UPDATE_POST]: (state, action) =>
       produce(state, (draft) => {
-        let idx = draft.list.findIndex((p) => p._id === action.payload.post_idx);
+        let idx = draft.list.findIndex(
+          (p) => p._id === action.payload.post_idx
+        );
         draft.list[idx].likeYn = action.payload.msg;
-        if (action.payload.msg === "like"){
-          draft.list[idx].like = parseInt(draft.list[idx].like) + 1
-        }else{
-          draft.list[idx].like = parseInt(draft.list[idx].like) - 1
+        if (action.payload.msg === "like") {
+          draft.list[idx].like = parseInt(draft.list[idx].like) + 1;
+        } else {
+          draft.list[idx].like = parseInt(draft.list[idx].like) - 1;
         }
-      })
+      }),
   },
   initialState
 );
