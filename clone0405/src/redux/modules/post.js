@@ -30,7 +30,8 @@ const initialState = {
 };
 
 //포스트 가져오기(5개씩)
-const getPostDB = (start = null, size = null, token) => { //초기값 start=null size=5(initialState 참고)
+const getPostDB = (start = null, size = null, token) => {
+  //초기값 start=null size=5(initialState 참고)
   return function (dispatch) {
     const postDB = {
       method: "GET",
@@ -42,7 +43,8 @@ const getPostDB = (start = null, size = null, token) => { //초기값 start=null
     axios(postDB)
       .then((docs) => {
         let result = docs.data.boardAll.slice(start, size); //모든 게시물 중에 n번 +5개 게시물만 result로 선언
-        if (result.length === 0) { //불러온 게시물이 끝났다면 return;
+        if (result.length === 0) {
+          //불러온 게시물이 끝났다면 return;
           dispatch(loading(false));
           return;
         }
@@ -50,7 +52,8 @@ const getPostDB = (start = null, size = null, token) => { //초기값 start=null
           start: start + result.length + 1,
           size: size + 5,
         };
-        const likeYn_list = docs.data.likeYn.map((p, idx) => { //포스트ID, 유저고유ID 정리하여 리스트화
+        const likeYn_list = docs.data.likeYn.map((p, idx) => {
+          //포스트ID, 유저고유ID 정리하여 리스트화
           return {
             post_id: p.boardId._id,
             user_id: p.userId,
@@ -59,7 +62,8 @@ const getPostDB = (start = null, size = null, token) => { //초기값 start=null
         result.forEach((doc) => {
           doc.day = moment(new Date(doc.day)).fromNow(); // 시간을 지정된 형식으로 변환 ex) n분 전, n시간 전
           const is_like = likeYn_list.find((a) => {
-            if (a.post_id === doc._id && a.user_id === doc.userId._id) { // 두 가지 경우가 true면 is_like에 true를 선언, 아니면 false를 선언
+            if (a.post_id === doc._id && a.user_id === doc.userId._id) {
+              // 두 가지 경우가 true면 is_like에 true를 선언, 아니면 false를 선언
               return true;
             } else {
               return false;
@@ -88,22 +92,14 @@ const addPostDB = (text, item, token) => {
 
     formData.append("contents", text);
     formData.append("boardImg", item);
-    // formData.append("authorization", token);
-    // const image = getState().image.preview;
-    // const user_email = getState().user.email;
-    // console.log(contents);
-
-    // console.log(image.data);
 
     const postDB = {
       url: "http://3.36.111.14/insta/board",
       method: "POST",
       data: formData,
       headers: {
-        // headers??????????????????
         authorization: token,
-        // Accept: "application/json",
-        // "Content-Type": "application/json;charset=UTF-8",
+
         "Content-Type": "multipart/form-data",
       },
     };
