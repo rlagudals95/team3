@@ -13,23 +13,26 @@ const Post = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [active, setActive] = useState(false);
   const [actives, setActives] = useState(false);
-
   const dispatch = useDispatch();
 
-  const openModal = (e) => {
+  const openModal = () => {
     setModalOpen(true);
   };
 
   const closeModal = () => {
     setModalOpen(false);
   };
+
+  //토큰 로컬스토리지 저장
   const token = localStorage.getItem("token");
 
+  //좋아요 누를시 실행
   const postLike = () => {
     dispatch(likeActions.sendLikeDB(props._id, token));
     setActive(true);
   };
 
+  //이미지 더블클릭 시 실행
   const imgpostLike = () => {
     if (props.likeYn === "unLike") {
       dispatch(likeActions.sendLikeDB(props._id, token));

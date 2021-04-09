@@ -1,19 +1,9 @@
-import { createAction, handleActions } from "redux-actions";
-import { produce } from "immer";
+import { handleActions } from "redux-actions";
 import axios from "axios";
 import "moment";
 import "moment/locale/ko";
-import moment from "moment";
-import { history } from "../configureStore";
 import { actionCreators as postActions } from "./post"
-
-const SET_LIKE = "SET_LIKE";
-const ADD_LIKE = "ADD_LIKE";
-const DEL_LIKE = "DEL_LIKE";
-const LIKE_CHECK = "LIKE_CHECK";
-
-const addLike = createAction(ADD_LIKE, (boardId, like_list) => ({ boardId, like_list }));
-const likeChk = createAction(LIKE_CHECK, (likeChk) => ({ likeChk }));
+import { config } from "../../config";
 
 const initialState = {
     is_loading: false,
@@ -21,15 +11,14 @@ const initialState = {
 };
 
 
+//좋아요 클릭 시 실행 (포스트 고유ID와 개인토큰 필요)
 const sendLikeDB = (boardId = null, token) => {
     return function (dispatch, getState, { history }) {
-        if (!boardId) {
+        if (!boardId || !token) {
             return;
         }
-        console.log("123")
-
         const likeDB = {
-            url: "http://3.36.111.14/insta/board/like",
+            url: `${config.api}/insta/board/like`,
             method: "post",
             data: {
                 boardId: boardId,
@@ -38,13 +27,10 @@ const sendLikeDB = (boardId = null, token) => {
                 authorization: token,
             },
         };
-        console.log(likeDB)
         axios(likeDB)
             .then((result) => {
-                let likeChkDB = result.data.message;
-                console.log(likeChkDB)
-                dispatch(postActions.updatePost(boardId, likeChkDB));
-                // dispatch(likeChk(likeChkDB));
+                let likeChkDB = result.data.message; //결과값 like, unLike
+                dispatch(postActions.updatePost(boardId, likeChkDB)); // 포스트ID와 결과값 dispatch
             })
             .catch((err) => {
                 console.log(err)
@@ -56,31 +42,12 @@ const sendLikeDB = (boardId = null, token) => {
 
 export default handleActions(
     {
-        [ADD_LIKE]: (state, action) =>
-            produce(state, (draft) => {
-                draft.likelist[action.payload.post_id] = action.payload.like_list;
-            }),
-        [SET_LIKE]: (state, action) =>
-            produce(state, (draft) => {
-                draft.likelist[action.payload.post_id] = action.payload.like_list;
-            }),
-        [DEL_LIKE]: (state, action) =>
-            produce(state, (draft) => {
-                draft.likelist[action.payload.post_id] = {};
-            }),
-        [LIKE_CHECK]: (state, action) =>
-            produce(state, (draft) => {
-                draft.is_like = action.payload.likeChk;
-            })
     },
     initialState
 );
 
 const actionCreators = {
     sendLikeDB,
-    // delLikeDB,
-    // getLikeDB,
-    // setLike,
 };
 
 export { actionCreators };

@@ -23,13 +23,15 @@ const updatePost = createAction(UPDATE_POST, (post_idx, msg) => ({
 }));
 
 const initialState = {
+  is_loading: true,
   list: [],
   paging: { start: null, size: 5 },
   likelist: [],
 };
 
-const getPostDB = (start = null, size = null, token) => {
-  return function (dispatch, getState, { history }) {
+//포스트 가져오기(5개씩)
+const getPostDB = (start = null, size = null, token) => { //초기값 start=null size=5(initialState 참고)
+  return function (dispatch) {
     const postDB = {
       method: "GET",
       url: `${config.api}/insta/main`,
@@ -39,34 +41,34 @@ const getPostDB = (start = null, size = null, token) => {
     };
     axios(postDB)
       .then((docs) => {
-        let result = docs.data.boardAll.slice(start, size);
-        if (result.length === 0) {
+        let result = docs.data.boardAll.slice(start, size); //모든 게시물 중에 n번 +5개 게시물만 result로 선언
+        if (result.length === 0) { //불러온 게시물이 끝났다면 return;
+          dispatch(loading(false));
           return;
         }
         let paging = {
           start: start + result.length + 1,
           size: size + 5,
         };
-        const likeYn_list = docs.data.likeYn.map((p, idx) => {
+        const likeYn_list = docs.data.likeYn.map((p, idx) => { //포스트ID, 유저고유ID 정리하여 리스트화
           return {
             post_id: p.boardId._id,
             user_id: p.userId,
           };
         });
         result.forEach((doc) => {
-          doc.day = moment(new Date(doc.day)).fromNow();
-
+          doc.day = moment(new Date(doc.day)).fromNow(); // 시간을 지정된 형식으로 변환 ex) n분 전, n시간 전
           const is_like = likeYn_list.find((a) => {
-            if (a.post_id === doc._id && a.user_id === doc.userId._id) {
+            if (a.post_id === doc._id && a.user_id === doc.userId._id) { // 두 가지 경우가 true면 is_like에 true를 선언, 아니면 false를 선언
               return true;
             } else {
               return false;
             }
           });
           if (is_like) {
-            doc.likeYn = "like";
+            doc.likeYn = "like"; // is_like가 true 시 likeYn에 좋아요를 누른 유저라고 저장해준다.
           } else {
-            doc.likeYn = "unLike";
+            doc.likeYn = "unLike"; // 아닐시 unLike
           }
         });
         dispatch(setPost(result, paging));
@@ -149,6 +151,10 @@ export default handleActions(
         } else {
           draft.list[idx].like = parseInt(draft.list[idx].like) - 1;
         }
+      }),
+    [LOADING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loading = action.payload.is_loading;
       }),
   },
   initialState

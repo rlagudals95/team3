@@ -18,7 +18,9 @@ const Main = (props) => {
   useEffect(() => {
     dispatch(postActions.getPostDB(paging.start, paging.size, token));
   }, []);
-  const test = () => {
+
+  //무한스크롤(다음 포스트를 불러옴)
+  const next = () => {
     dispatch(postActions.getPostDB(paging.start, paging.size, token));
   };
 
@@ -35,7 +37,7 @@ const Main = (props) => {
               <Leftmain>
                 <InfiniteScroll
                   dataLength={post_list.length}
-                  next={test}
+                  next={next}
                   hasMore={true}
                 >
                   {post_list.map((p, idx) => {
