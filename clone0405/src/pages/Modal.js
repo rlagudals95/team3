@@ -30,7 +30,6 @@ const Modal = (props) => {
 
 
 const ModalboxR = styled.button`
-// border-top: 0.1px solid #dbdbdb;
 line-height: 1.5;
 margin: 0;
 cursor: pointer;

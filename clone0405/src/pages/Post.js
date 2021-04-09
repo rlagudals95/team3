@@ -230,20 +230,13 @@ const StoryPic = styled.div`
 const Img = styled.img`
   height: 100%;
   width: 100%;
-  // left: 0;
   position: absolute;
-  // top: 0;
-  // object-fit:cover;
-  // display:flex;
-  // justify-content:center;
-  // align-items:center;
   background-size: cover;
   background-image: url("${(props) => props.img}");
 `;
 
 const Profilename = styled.p`
   margin-left: 10px;
-  // display: flex;
   font-weight: 600;
   font-size: 14px;
 `;
@@ -258,8 +251,6 @@ const Mainbox1 = styled.div`
 `;
 
 const Fav = styled.div`
-  // maring: 0px auto;
-  // align-items: center;
 `;
 
 const Fav2 = styled.div`
@@ -331,11 +322,6 @@ const Postdate = styled.p`
   font-size: 10px;
   color: rgba(var(--f52, 142, 142, 142), 1);
   margin: 0px auto;
-  // font-weight: 400;
-  // font-size: 14px;
-  // margin: 0px auto;
-  // margin-bottom : 4px;
-  // display:flex;
 `;
 
 const fadeIn = keyframes`
